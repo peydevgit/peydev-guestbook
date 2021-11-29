@@ -26,6 +26,9 @@ app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, './public', 'loggain.html'));
 });
 
+app.get('/registera', function (req, res) {
+    res.sendFile(path.join(__dirname, './public', 'registera.html'));
+});
 
 // startar servern.
 server.listen(3000, function () { 
