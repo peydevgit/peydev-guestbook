@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const users = (JSON.parse(fs.readFileSync('user.json'))); // Vi laddar in json filen user som vi kommer ha våra användarinformation på.
 module.exports = users;  // vi gör så den är tillgänglig för att skrivas.
+const guestbook = (JSON.parse(fs.readFileSync('guestbook.json'))); // Vi laddar in json filen user som vi kommer ha våra användarinformation på.
+module.exports = users;  // vi gör så den är tillgänglig för att skrivas.
 
 // start sidan
 app.get('/', function (req, res) {
