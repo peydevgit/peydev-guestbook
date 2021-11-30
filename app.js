@@ -72,11 +72,11 @@ app.post('/registera', async function (req, res) { // För registeringsidans for
         users.push(newUser); // lägg till det nya objektet i den vanliga objekt.
         fs.writeFileSync('user.json', JSON.stringify(users, null, 4)) // vi skriver in den nya objektet tillsammans med de gamla.
 
-        res.send(`Kontot är skapad! <a href="./">Klicka här för att logga in!</a>"`);  // feedback när kontot är skapad.
+        res.send(`Kontot är skapad! <br> <a href="./">Klicka här för att logga in!</a>"`);  // feedback när kontot är skapad.
         console.log(`Användaren: ${req.body.username} och ${req.body.email} är skapad!`)  // feedback för konsolen.
     }
     else
-        res.send('Denna användarnamn eller email är redan upptaget! <a href="./registera">Försök igen!</a>') // feedback om att någon av dessa är upptaget.
+        res.send('Denna användarnamn eller email är redan upptaget! <br> <a href="./registera">Försök igen!</a>') // feedback om att någon av dessa är upptaget.
     
 });
 
