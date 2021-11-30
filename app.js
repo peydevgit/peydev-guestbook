@@ -38,8 +38,9 @@ app.get('/', function (req, res) {
 });
 
 app.post('/loggain', async function (req, res) {  // när formuläret skickas, så kommer det hit genom POST
-    let userAccount = users.find(user => req.body.username === user.username)  // skapar en ny variabel till ger den att kolla igenom vår json fil genom arrow expresson, där vi jämför inmatade användarnamnet och den i json filen
-    let userPassword = users.find(user => req.body.password === user.password); // vi gör samma sak som ovan fast med lösenordet från formuläret och den i json filen.
+    let userAccount = users.find(user => req.body.username === user.username)  // skapar en ny variabel till ger den att kolla igenom vår json fil genom arrow expresson, där vi kollar om inmatningen finns i json filen.
+    let userPassword = userAccount.password === req.body.password;
+    console.log(userAccount);
     if (userAccount && userPassword) {  // om användarnamn och lösenord stämmer eller har hittats.
         req.session.loggedin = true;  // vi skapar en session,.
         req.session.username = req.body.username; /// vi sparar användarnamnet som är inmatad med session namnet som vi kan använda senare.
@@ -89,7 +90,7 @@ app.get('/start', function (req, res) {
         <p> ${guestbook.map(function (entry) {
             return `<br>Namn: ${entry.Namn} <br>
                      Medelande: ${entry.Medelande} <br>
-                     Datum: ${entry.Datum}`}).join('') } <br></p>`);
+                     Datum: ${entry.Datum}`}).join('')} </p>`);
     else
         res.redirect('/'); // annars skickas dem till logga in sidan.
 
