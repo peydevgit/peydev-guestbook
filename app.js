@@ -66,7 +66,7 @@ app.post('/registera', async function (req, res) { // För registeringsidans for
     let userAccount = users.find((user) => req.body.username === user.username); // vi gör som förut som vi gjorde på inloggning sidan.
     let userEmail = users.find((user) => req.body.email === user.email);
     if (!userAccount && !userEmail) { // om användarnamnet och emailen är ledigt.
-        const hashPassword = bcrypt.hashSync(req.body.password, 10);  // hashar lösenordet.
+        const hashPassword = bcrypt.hashSync(req.body.password, 8);  // hashar lösenordet 8^2 rundor för att de ska bli säkert., .
         let newUser = {  // vi skapar en objekt
             username: req.body.username, // där username, email och lösenord ska vara inmatningarna från formuläret.
             email: req.body.email,
