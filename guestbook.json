@@ -1,1 +1,7 @@
-[]
+[
+    {
+        "Namn": "test",
+        "Medelande": "Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.",
+        "Datum": "2021-11-30"
+    }
+]

@@ -1,1 +1,12 @@
-[]
+[
+    {
+        "username": "peyDev",
+        "email": "paiman1991@gmail.com",
+        "password": "$2b$08$pjsI7MSfEKYY/IBSQLEo.usZneHGpKFN0cqdRey/YN.two4DloshG"
+    },
+    {
+        "username": "test",
+        "email": "test@test.se",
+        "password": "$2b$08$OqGpGothv9BC8CIB7JEpr.dSo.3kdL303Jnx2XTuMRPN.Zzs93F.."
+    }
+]

@@ -44,7 +44,6 @@ app.post('/loggain', async function (req, res) {  // när formuläret skickas, s
     if (userAccount && matchPassword) {  // om användarnamn och lösenord stämmer eller har hittats.
         req.session.loggedin = true;  // vi skapar en session,.
         req.session.username = req.body.username; /// vi sparar användarnamnet som är inmatad med session namnet som vi kan använda senare.
-        req.session.cookie.maxAge(300000);
         res.redirect('/start')  // skickar iväg till gästboken
         console.log(`Användare: ${req.session.username} har loggat in.`)  // lägger till i konsolen för roligt skull.
     }
@@ -76,7 +75,7 @@ app.post('/registera', async function (req, res) { // För registeringsidans for
         fs.writeFileSync('user.json', JSON.stringify(users, null, 4)) // vi skriver in den nya objektet tillsammans med de gamla.
 
         res.send(`Kontot är skapad! <br> <a href="./">Klicka här för att logga in!</a>"`);  // feedback när kontot är skapad.
-        console.log(`Användaren: ${req.body.username} och ${req.body.email} är skapad!`)  // feedback för konsolen.
+        console.log(`Användare: ${req.body.username} och ${req.body.email} är skapad!`)  // feedback för konsolen.
     }
     else
         res.send('Denna användarnamn eller email är redan upptaget! <br> <a href="./registera">Försök igen!</a>') // feedback om att någon av dessa är upptaget.
