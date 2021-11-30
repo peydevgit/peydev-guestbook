@@ -31,6 +31,19 @@ app.use(session({
     saveUninitialized: true
 }));
 
+// vi skapar en validator funktion för onskefulla input för att slippa kopiera och klistra det överallt som behövs.
+let valiDator = (input) => {
+    let output = '';
+    for (let i = 0; i < input.length; i++) {
+        if (input[i] == '<')
+            output += '&lt;';
+        else
+            output += input[i];
+    }
+    return output;
+}
+
+
 
 // När de gör en request när de besöker sidan, så tar vi emot requesten och skickar dem till loggain.html 
 app.get('/', function (req, res) {
@@ -79,7 +92,7 @@ app.post('/registera', async function (req, res) { // För registeringsidans for
     }
     else
         res.send('Denna användarnamn eller email är redan upptaget! <br> <a href="./registera">Försök igen!</a>') // feedback om att någon av dessa är upptaget.
-    
+
 });
 
 
@@ -91,7 +104,8 @@ app.get('/start', function (req, res) {
         <p> ${guestbook.map(function (entry) {
             return `<br>Namn: ${entry.Namn} <br>
                      Medelande: ${entry.Medelande} <br>
-                     Datum: ${entry.Datum}`}).join('')} </p>`);
+                     Datum: ${entry.Datum}`
+        }).join('')} </p>`);
     else
         res.redirect('/'); // annars skickas dem till logga in sidan.
 
@@ -106,9 +120,10 @@ app.get('/skapa', function (req, res) {   // request sidan när de vill komma å
 
 app.post('/skapa', function (req, res) {  // POST för skapa.html formuläret.
     if (req.session.loggedin == true) {  // om användaren är inloggad
+        let entryMessage = req.body.body;
         let newEntry = {   // skapar ny inlägg objekt
             Namn: req.session.username,  // vi hämtar deras användarnamn från sessionen de har loggat in med.
-            Medelande: req.body.body,  // medelandet.
+            Medelande: valiDator(entryMessage),  // medelandet.
             Datum: new Date().toLocaleDateString()  // datumet.
         }
         guestbook.push(newEntry) // lägger in i guestbook objektet

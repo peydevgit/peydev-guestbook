@@ -3,5 +3,30 @@
         "Namn": "test",
         "Medelande": "Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.Detta är ett test.",
         "Datum": "2021-11-30"
+    },
+    {
+        "Namn": "test",
+        "Medelande": "<b>onskefull inlägg</b>",
+        "Datum": "2021-11-30"
+    },
+    {
+        "Namn": "test",
+        "Medelande": "&lt;b>onskefull inlägg&lt;/b>",
+        "Datum": "2021-11-30"
+    },
+    {
+        "Namn": "test",
+        "Medelande": "",
+        "Datum": "2021-11-30"
+    },
+    {
+        "Namn": "test",
+        "Medelande": "",
+        "Datum": "2021-11-30"
+    },
+    {
+        "Namn": "test",
+        "Medelande": "&lt;b>onskefull input!&lt;/b>",
+        "Datum": "2021-11-30"
     }
 ]
