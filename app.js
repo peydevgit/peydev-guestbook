@@ -39,11 +39,12 @@ app.get('/', function (req, res) {
 
 app.post('/loggain', async function (req, res) {  // när formuläret skickas, så kommer det hit genom POST
     let userAccount = users.find(user => req.body.username === user.username)  // skapar en ny variabel till ger den att kolla igenom vår json fil genom arrow expresson, där vi kollar om inmatningen finns i json filen.
-    let userPassword = userAccount.password === req.body.password;
-    console.log(userAccount);
-    if (userAccount && userPassword) {  // om användarnamn och lösenord stämmer eller har hittats.
+    const matchPassword = await bcrypt.compare(req.body.password, userAccount.password);
+    console.log(matchPassword);
+    if (userAccount && matchPassword) {  // om användarnamn och lösenord stämmer eller har hittats.
         req.session.loggedin = true;  // vi skapar en session,.
         req.session.username = req.body.username; /// vi sparar användarnamnet som är inmatad med session namnet som vi kan använda senare.
+        req.session.cookie.maxAge(300000);
         res.redirect('/start')  // skickar iväg till gästboken
         console.log(`Användare: ${req.session.username} har loggat in.`)  // lägger till i konsolen för roligt skull.
     }
@@ -65,10 +66,11 @@ app.post('/registera', async function (req, res) { // För registeringsidans for
     let userAccount = users.find((user) => req.body.username === user.username); // vi gör som förut som vi gjorde på inloggning sidan.
     let userEmail = users.find((user) => req.body.email === user.email);
     if (!userAccount && !userEmail) { // om användarnamnet och emailen är ledigt.
+        const hashPassword = bcrypt.hashSync(req.body.password, 10);  // hashar lösenordet.
         let newUser = {  // vi skapar en objekt
             username: req.body.username, // där username, email och lösenord ska vara inmatningarna från formuläret.
             email: req.body.email,
-            password: req.body.password
+            password: hashPassword
         }
         users.push(newUser); // lägg till det nya objektet i den vanliga objekt.
         fs.writeFileSync('user.json', JSON.stringify(users, null, 4)) // vi skriver in den nya objektet tillsammans med de gamla.

@@ -13,5 +13,10 @@
         "username": "paiman",
         "email": "pa@live.se",
         "password": "hustle"
+    },
+    {
+        "username": "hash",
+        "email": "hash@live.se",
+        "password": "$2b$10$pp34eO/RRQIZEokTy86BgO3YiSRKLK5EPLuMpSkU1N10lxWWK1nCe"
     }
 ]
