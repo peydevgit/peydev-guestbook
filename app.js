@@ -86,7 +86,10 @@ app.get('/start', function (req, res) {
     if (req.session.loggedin == true)  // kollar om användaren är inloggad genom att kolla om sessionen är skapad.
         res.send(`Välkommen ${req.session.username} till peyDevs Gästbok! <p><a href="./loggaut">Logga ut</a></p>
         <p><a href="./skapa">Skapa inlägg</a></p> <br>
-        <p>` + JSON.stringify(guestbook, null, 4) + `</p>`)   // vi skriver ut inläggen.
+        <p> ${guestbook.map(function (entry) {
+            return `Namn: ${entry.Namn} <br>
+                    Medelande: ${entry.Medelande} <br>
+                    Datum: ${entry.Datum}`}).join('')} </p>`);
     else
         res.redirect('/'); // annars skickas dem till logga in sidan.
 
