@@ -3,5 +3,10 @@
         "Namn": "test",
         "Medelande": "Det här är en test inlägg!",
         "Datum": "2021-11-30"
+    },
+    {
+        "Namn": "test",
+        "Medelande": "Det här ett till test inlägg",
+        "Datum": "2021-11-30"
     }
 ]

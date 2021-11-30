@@ -87,9 +87,9 @@ app.get('/start', function (req, res) {
         res.send(`Välkommen ${req.session.username} till peyDevs Gästbok! <p><a href="./loggaut">Logga ut</a></p>
         <p><a href="./skapa">Skapa inlägg</a></p> <br>
         <p> ${guestbook.map(function (entry) {
-            return `Namn: ${entry.Namn} <br>
-                    Medelande: ${entry.Medelande} <br>
-                    Datum: ${entry.Datum}`}).join('')} </p>`);
+            return `<br>Namn: ${entry.Namn} <br>
+                     Medelande: ${entry.Medelande} <br>
+                     Datum: ${entry.Datum}`}).join('') } <br></p>`);
     else
         res.redirect('/'); // annars skickas dem till logga in sidan.
 
