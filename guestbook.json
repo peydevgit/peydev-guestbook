@@ -1,1 +1,7 @@
-[]
+[
+    {
+        "Namn": "test",
+        "Medelande": "Det här är en test inlägg!",
+        "Datum": "2021-11-30"
+    }
+]

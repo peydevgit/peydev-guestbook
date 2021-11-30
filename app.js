@@ -84,13 +84,36 @@ app.post('/registera', async function (req, res) { // För registeringsidans for
 // När användaren är inloggad så kommer de komma till den riktiga start sidan.
 app.get('/start', function (req, res) {
     if (req.session.loggedin == true)  // kollar om användaren är inloggad genom att kolla om sessionen är skapad.
-        res.send(`Välkommen ${req.session.username} till peyDevs Gästbok! <p><a href="./loggaut">Logga ut</a></p>`)
+        res.send(`Välkommen ${req.session.username} till peyDevs Gästbok! <p><a href="./loggaut">Logga ut</a></p>
+        <p><a href="./skapa">Skapa inlägg</a></p> <br>
+        <p>` + JSON.stringify(guestbook, null, 4) + `</p>`)   // vi skriver ut inläggen.
     else
         res.redirect('/'); // annars skickas dem till logga in sidan.
 
 });
 
+app.get('/skapa', function (req, res) {   // request sidan när de vill komma åt /skapa
+    if (req.session.loggedin == true) //
+        res.sendFile(path.join(__dirname, './public', 'skapa.html')); // vi skickar skapa.html om de är inloggade.
+    else
+        res.redirect('/'); // annars tillbaks till inloggning sidan.
+});
 
+app.post('/skapa', function (req, res) {  // POST för skapa.html formuläret.
+    if (req.session.loggedin == true) {  // om användaren är inloggad
+        let newEntry = {   // skapar ny inlägg objekt
+            Namn: req.session.username,  // vi hämtar deras användarnamn från sessionen de har loggat in med.
+            Medelande: req.body.body,  // medelandet.
+            Datum: new Date().toLocaleDateString()  // datumet.
+        }
+        guestbook.push(newEntry) // lägger in i guestbook objektet
+        fs.writeFileSync('guestbook.json', JSON.stringify(guestbook, null, 4)) // sparar det nya guestbooket.
+        console.log(`Användaren: ${req.session.username} har skapat ett inlägg!`)  // feedback för consolen.
+        res.redirect('/start');  // vi skickar tillbaks användaren till gästbok sidan.
+    }
+    else
+        res.redirect('/'); // annars får de logga in.s
+});
 
 // startar servern.
 server.listen(3000, function () {
