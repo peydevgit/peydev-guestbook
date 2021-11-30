@@ -6,5 +6,32 @@
     "express-session": "^1.17.2",
     "path": "^0.12.7",
     "session": "^0.1.0"
-  }
+  },
+  "name": "peydev-guestbook",
+  "description": "guestbook node.js express login",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peydevgit/peydev-guestbook.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "btcrypt",
+    "bodyparser",
+    "guestbook",
+    "login",
+    "entry"
+  ],
+  "author": "Peyman Eliassi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peydevgit/peydev-guestbook/issues"
+  },
+  "homepage": "https://github.com/peydevgit/peydev-guestbook#readme"
 }
