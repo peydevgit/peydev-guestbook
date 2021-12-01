@@ -6,7 +6,8 @@
     "express-session": "^1.17.2",
     "path": "^0.12.7",
     "scripts-dev": "^1.1.0",
-    "session": "^0.1.0"
+    "session": "^0.1.0",
+    "webpack": "^5.64.4"
   },
   "engines": {
     "node": "16.13.0"
@@ -38,6 +39,5 @@
   "bugs": {
     "url": "https://github.com/peydevgit/peydev-guestbook/issues"
   },
-  "homepage": "https://github.com/peydevgit/peydev-guestbook#readme",
-  "devDependencies": {}
+  "homepage": "https://github.com/peydevgit/peydev-guestbook#readme"
 }
