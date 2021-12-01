@@ -14,33 +14,5 @@
   },
   "name": "peydev-guestbook",
   "description": "guestbook node.js express login",
-  "version": "1.0.0",
-  "main": "app.js",
-  "scripts": {
-"start": "snowpack dev",
-   "build": "snowpack build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/peydevgit/peydev-guestbook.git"
-  },
-  "keywords": [
-    "nodejs",
-    "express",
-    "btcrypt",
-    "bodyparser",
-    "guestbook",
-    "login",
-    "entry"
-  ],
-  "author": "Peyman Eliassi",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/peydevgit/peydev-guestbook/issues"
-  },
-  "homepage": "https://github.com/peydevgit/peydev-guestbook#readme",
-  "devDependencies": {
-    "snowpack": "^3.8.8",
-    "webpack-cli": "^4.9.1"
-  }
+  "version": "1.0.0"
 }
