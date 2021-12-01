@@ -21,7 +21,6 @@ app.use(express.static("public")); // vi gör mappen public åtkomlig för andra
 const users = (JSON.parse(fs.readFileSync('user.json'))); // Vi laddar in json filen user som vi kommer ha våra användarinformation på.
 module.exports = users;  // vi gör så den är tillgänglig för att skrivas.
 const guestbook = (JSON.parse(fs.readFileSync('guestbook.json'))); // Vi laddar in json filen user som vi kommer ha våra användarinformation på.
-module.exports = guestbook;  // vi gör så den är tillgänglig för att skrivas.
 
 // skapar en session när användaren loggar in sen.
 app.use(session({
@@ -46,16 +45,21 @@ let valiDator = (input) => {
 
 // När de gör en request när de besöker sidan, så tar vi emot requesten och skickar dem till loggain.html 
 app.get('/', function (req, res) {
-    if (req.session.loggedin == true)
-        res.redirect('/start')
-    else
-        res.send(`${htmlModel.htmlToBody()}${htmlModel.menuLoggedout()}  ${htmlModel.loginForm()}  ${htmlModel.bodyToHtml()}`);
+    try {
+        if (req.session.loggedin == true)
+            res.redirect('/start')
+        else
+            res.send(`${htmlModel.htmlToBody()}${htmlModel.menuLoggedout()}  ${htmlModel.loginForm()}  ${htmlModel.bodyToHtml()}`);
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
 
 // När användaren är inloggad så kommer de komma till den riktiga start sidan.
 app.get('/start', function (req, res) {
     if (req.session.loggedin == true)  // kollar om användaren är inloggad genom att kolla om sessionen är skapad.
-        res.send(`${htmlModel.htmlToBody()}${htmlModel.menuLoggedin()} ${htmlModel.createForm(`${req.session.username }`)} <br>
+        res.send(`${htmlModel.htmlToBody()}${htmlModel.menuLoggedin()} ${htmlModel.createForm(`${req.session.username}`)} <br>
          ${guestbook.map(function (entry) {
             return ` ${htmlModel.entryForm(`${entry.Namn}`, `${entry.Datum}`, `${entry.Medelande}`)}
                     `
@@ -66,18 +70,27 @@ app.get('/start', function (req, res) {
 });
 
 
+
 app.post('/loggain', async function (req, res) {  // när formuläret skickas, så kommer det hit genom POST
     let userAccount = users.find(user => req.body.username === user.username)  // skapar en ny variabel till ger den att kolla igenom vår json fil genom arrow expresson, där vi kollar om inmatningen finns i json filen.
-    const matchPassword = await bcrypt.compare(req.body.password, userAccount.password);
-    console.log(matchPassword);
-    if (userAccount && matchPassword) {  // om användarnamn och lösenord stämmer eller har hittats.
-        req.session.loggedin = true;  // vi skapar en session,.
-        req.session.username = req.body.username; /// vi sparar användarnamnet som är inmatad med session namnet som vi kan använda senare.
-        res.redirect('/start')  // skickar iväg till gästboken
-        console.log(`Användare: ${req.session.username} har loggat in.`)  // lägger till i konsolen för roligt skull.
+    if (userAccount) {
+        let userPassword = userAccount.password;
+        const matchPassword = await bcrypt.compare(req.body.password, userPassword);
+        console.log(matchPassword);
+
+        if (matchPassword) {  // om användarnamn och lösenord stämmer eller har hittats.
+            req.session.loggedin = true;  // vi skapar en session,.
+            req.session.username = req.body.username; /// vi sparar användarnamnet som är inmatad med session namnet som vi kan använda senare.
+            res.redirect('/start')  // skickar iväg till gästboken
+            console.log(`Användare: ${req.session.username} har loggat in.`)  // lägger till i konsolen för roligt skull.
+        }
+        else 
+            res.redirect('/'); // om de har skrivit in fel användarnamn eller lösenord så skickar vi dem tillbaks till logga in sidan.
+        console.log(`Användaren ${userAccount.username} skrev in fel lösen.`)
     }
     else
-        res.redirect('/'); // om de har skrivit in fel användarnamn eller lösenord så skickar vi dem tillbaks till logga in sidan.
+    res.redirect('/');
+    console.log('Någon försökte logga in med ett användarnamn som inte hittades.')
 });
 
 app.get('/loggaut', function (req, res) {   // skapar en sida för när användaren vill logga ut.

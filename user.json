@@ -8,5 +8,10 @@
         "username": "asd",
         "email": "asd@asd.asd",
         "password": "$2b$08$MBiO/5ybA6tRTnjwoT6/rO79PZY6F.3wAXi4DzxLXR23ksUzVd9gu"
+    },
+    {
+        "username": "admin",
+        "email": "admin@peydev.com",
+        "password": "$2b$08$YO0yWEYA0B5KnOy3UOihqOsyPQcRsSZ899OpacFf3XNumelfm3iXm"
     }
 ]
