@@ -5,9 +5,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "path": "^0.12.7",
-    "scripts-dev": "^1.1.0",
     "session": "^0.1.0"
-
   },
   "engines": {
     "node": "16.13.0",
