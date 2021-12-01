@@ -8,5 +8,10 @@
         "Namn": "peydev",
         "Medelande": "&lt;script>while(true){alert('Ondska!');}&lt;/script>",
         "Datum": "2021-12-01"
+    },
+    {
+        "Namn": "peydev",
+        "Medelande": "ahmad test 123",
+        "Datum": "2021-12-01"
     }
 ]
