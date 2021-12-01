@@ -15,7 +15,6 @@ const server = http.createServer(app); // gör om http modulen till variabeln se
 
 // gör om informationen som kommer genom formulär osv.
 app.use(bodyParser.urlencoded({ extended: false }));
-
 app.use(express.static("public")); // vi gör mappen public åtkomlig för andra.
 
 const users = (JSON.parse(fs.readFileSync('user.json'))); // Vi laddar in json filen user som vi kommer ha våra användarinformation på.
@@ -137,7 +136,7 @@ app.post('/skapa', function (req, res) {  // POST för skapa.html formuläret.
 
 
 // startar servern.
-server.listen(3000, function () {
-    
+server.listen(process.env.PORT || 3000, function () {
+
     console.log("Server är startad på port: 3000");
 });
