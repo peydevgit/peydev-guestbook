@@ -5,6 +5,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "path": "^0.12.7",
+    "scripts-dev": "^1.1.0",
     "session": "^0.1.0"
   },
   "engines": {
@@ -14,9 +15,10 @@
   "description": "guestbook node.js express login",
   "version": "1.0.0",
   "main": "app.js",
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "app start",
+    "dev": "app dev",
+    "build": "app build"
   },
   "repository": {
     "type": "git",
