@@ -19,7 +19,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "app dev",
-    "build": "app build"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
