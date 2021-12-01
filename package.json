@@ -16,7 +16,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "app start",
+    "start": "node app.js",
     "dev": "app dev",
     "build": "app build"
   },
