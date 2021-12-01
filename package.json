@@ -38,5 +38,6 @@
   "bugs": {
     "url": "https://github.com/peydevgit/peydev-guestbook/issues"
   },
-  "homepage": "https://github.com/peydevgit/peydev-guestbook#readme"
+  "homepage": "https://github.com/peydevgit/peydev-guestbook#readme",
+  "devDependencies": {}
 }
