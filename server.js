@@ -45,15 +45,12 @@ let valiDator = (input) => {
 
 // När de gör en request när de besöker sidan, så tar vi emot requesten och skickar dem till loggain.html 
 app.get('/', function (req, res) {
-    try {
         if (req.session.loggedin == true)
             res.redirect('/start')
         else
             res.send(`${htmlModel.htmlToBody()}${htmlModel.menuLoggedout()}  ${htmlModel.loginForm()}  ${htmlModel.bodyToHtml()}`);
-    }
-    catch (err) {
-        console.log(err);
-    }
+ 
+    
 });
 
 // När användaren är inloggad så kommer de komma till den riktiga start sidan.
