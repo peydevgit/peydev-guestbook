@@ -136,7 +136,7 @@ app.post('/skapa', function (req, res) {  // POST för skapa.html formuläret.
 
 
 // startar servern.
-server.listen(process.env.PORT || 3000, function () {
-
-    console.log("Server är startad på port: 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${PORT}`);
 });
