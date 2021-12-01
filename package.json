@@ -1,20 +1,22 @@
 {
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "express-session": "^1.17.2",
-    "path": "^0.12.7",
-    "session": "^0.1.0"
-  },
-  "engines": {
-    "node": "16.13.0",
-    "npm": "8.1.4"
-  },
   "name": "peydev-guestbook",
+  "version": "1.0.0",
   "description": "guestbook node.js express login",
-  "version": "1.0.0"
-}
-"scripts": {
+  "main": "app.js",
+  "dependencies": {
+        "bcrypt": "5.0.1",
+        "body-parser": "1.19.0",
+        "express": "4.17.1",
+        "express-session": "1.17.2",
+        "path": "0.12.7",
+        "session": "0.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
     "start": "node app.js"
+  },
+"engines": {
+  "node": "16.x",
+  "npm": "8.x"
+}
 }
