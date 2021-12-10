@@ -13,5 +13,10 @@
         "username": "admin",
         "email": "admin@peydev.com",
         "password": "$2b$08$YO0yWEYA0B5KnOy3UOihqOsyPQcRsSZ899OpacFf3XNumelfm3iXm"
+    },
+    {
+        "username": "aa",
+        "email": "aa@aa.se",
+        "password": "$2b$08$HWgmq5QdoKv7CejZtVMtQehEebvAGkqyN24k/jgGgbA5Lo6i2ddY6"
     }
 ]

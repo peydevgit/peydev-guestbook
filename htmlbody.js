@@ -1,3 +1,6 @@
+// vi gör funktioner som innehåller html kod nog för att skapa de olika sidorna vi vill ha utan att använda någon template engine och exporterar till huvudfilen server.js.
+
+
 exports.htmlToBody = () => {
     return `
 <!DOCTYPE html>
@@ -19,7 +22,8 @@ exports.htmlToBody = () => {
     <p>En gästbok skapad med hjälp av NodeJS</p>
   </div>
   <nav>
-`};
+`
+};
 
 exports.menuLoggedin = () => {
     return `
@@ -28,14 +32,16 @@ exports.menuLoggedin = () => {
       <a href="/loggaut">Logga ut</a>
     </div>
     </nav>
-    <div class="content">`};
+    <div class="content">`
+};
 exports.menuLoggedout = () => {
     return `
     <div class="navbar">
       <a href="/">Hem</a>
     </div>
     </nav>
-    <div class="content">`};
+    <div class="content">`
+};
 
 exports.bodyToHtml = () => {
     return `
@@ -44,15 +50,15 @@ exports.bodyToHtml = () => {
 </html>
 `
 };
-
-exports.entryForm = (a,b,c) => {
-    return `
+// vi använder denna för att skriva ut inläggen.
+exports.entryForm = (a, b, c) => {
+        return `
     <div class="codebox">
-    <div class="codebox_p">Användare: `+ a + ` <span id="datum_id"">Datum: `+ b + ` </span>
+    <div class="codebox_p">Användare: ` + a + ` <span id="datum_id"">Datum: ` + b + ` </span>
     </div> <code>` + c + `</code>
     </div><br>`
-}
-
+    }
+    // inloggnings form.
 exports.loginForm = () => {
     return `
         <div class="login-form">
@@ -87,11 +93,10 @@ exports.createForm = (a) => {
         <div class="login-form">
         <h3>Skapa ett inlägg</h3>
         <form action="/skapa" method="post">
-            <input type="text" value=" `+ a +`" disabled><br>
+            <input type="text" value=" ` + a + `" disabled><br>
             <textarea id="body" name="body" rows="10" placeholder="Skriv inlägget" required></textarea><br/>
             <input type="submit" value="Skicka">
         </form>
         </div>
 `
 };
-

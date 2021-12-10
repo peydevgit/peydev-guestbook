@@ -13,5 +13,15 @@
         "Namn": "peydev",
         "Medelande": "ahmad test 123",
         "Datum": "2021-12-01"
+    },
+    {
+        "Namn": "peydev",
+        "Medelande": "testar",
+        "Datum": "2021-12-02"
+    },
+    {
+        "Namn": "peydev",
+        "Medelande": "test123",
+        "Datum": "2021-12-02"
     }
 ]

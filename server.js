@@ -1,10 +1,8 @@
-
 /* vi laddar in moduler först som vi ska använda */
 const fs = require('fs'); // Modul för att läsa och skriva in filer.
 const express = require('express'); // Modul Express ramverket
 const http = require('http'); // Modul för att skapa en webbserver
 const bcrypt = require('bcrypt'); /// Modul för att hasha lösenorden ---- för framtida ändringar.
-const path = require("path"); // Modul för att sökvägar och mappar.
 const bodyParser = require('body-parser'); // Modul för att göra om json filen till objekt
 const session = require('express-session'); // Modul för skapa sessioner när användaren loggar in.
 const htmlModel = require("./htmlbody.js"); // importerar funktioner som innehåller html kroppen
@@ -19,7 +17,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static("public")); // vi gör mappen public åtkomlig för andra.
 
 const users = (JSON.parse(fs.readFileSync('user.json'))); // Vi laddar in json filen user som vi kommer ha våra användarinformation på.
-module.exports = users;  // vi gör så den är tillgänglig för att skrivas.
 const guestbook = (JSON.parse(fs.readFileSync('guestbook.json'))); // Vi laddar in json filen user som vi kommer ha våra användarinformation på.
 
 // skapar en session när användaren loggar in sen.
@@ -43,24 +40,22 @@ let valiDator = (input) => {
 
 
 
-// När de gör en request när de besöker sidan, så tar vi emot requesten och skickar dem till loggain.html 
-app.get('/', function (req, res) {
-        if (req.session.loggedin == true)
-            res.redirect('/start')
-        else
-            res.send(`${htmlModel.htmlToBody()}${htmlModel.menuLoggedout()}  ${htmlModel.loginForm()}  ${htmlModel.bodyToHtml()}`);
- 
-    
+// När de gör en request när de besöker sidan, så tar vi emot requesten och kollar om de är först inloggade, annars så skickar vi de till inloggning sidan.
+app.get('/', function(req, res) {
+    if (req.session.loggedin == true) // om denna är true så betyder de att de har loggat in.
+        res.redirect('/start') // response med redirect till den riktiga start sidan.
+    else
+        res.send(`${htmlModel.htmlToBody()}${htmlModel.menuLoggedout()}  ${htmlModel.loginForm()}  ${htmlModel.bodyToHtml()}`); // skapat en html sida genom importerade funktioner.
 });
 
 // När användaren är inloggad så kommer de komma till den riktiga start sidan.
-app.get('/start', function (req, res) {
-    if (req.session.loggedin == true)  // kollar om användaren är inloggad genom att kolla om sessionen är skapad.
-        res.send(`${htmlModel.htmlToBody()}${htmlModel.menuLoggedin()} ${htmlModel.createForm(`${req.session.username}`)} <br>
+app.get('/start', function(req, res) {
+            if (req.session.loggedin == true) // kollar om användaren är inloggad genom att kolla om sessionen är skapad.
+                res.send(`${htmlModel.htmlToBody()}${htmlModel.menuLoggedin()} ${htmlModel.createForm(`${req.session.username}`)} <br> 
          ${guestbook.map(function (entry) {
             return ` ${htmlModel.entryForm(`${entry.Namn}`, `${entry.Datum}`, `${entry.Medelande}`)}
                     `
-        }).join('')}  ${htmlModel.bodyToHtml()}`);
+        }).join('')}  ${htmlModel.bodyToHtml()}`); //////// vi skapar en html sida, sedan med hjälp av en map funktion kopierar objektet guestbook som innehåller inläggen. 
     else
         res.redirect('/'); // annars skickas dem till logga in sidan. 
 
@@ -70,12 +65,12 @@ app.get('/start', function (req, res) {
 
 app.post('/loggain', async function (req, res) {  // när formuläret skickas, så kommer det hit genom POST
     let userAccount = users.find(user => req.body.username === user.username)  // skapar en ny variabel till ger den att kolla igenom vår json fil genom arrow expresson, där vi kollar om inmatningen finns i json filen.
-    if (userAccount) {
-        let userPassword = userAccount.password;
-        const matchPassword = await bcrypt.compare(req.body.password, userPassword);
-        console.log(matchPassword);
+    if (userAccount) {  // om användarnamnet finns. alltså då kommer den returnera true.
+        let userPassword = userAccount.password;  // skapar en variabel userPassword för att underlätta.
+        const matchPassword = await bcrypt.compare(req.body.password, userPassword);  // vi hashar tillbaks det sparade lösenordet och jämför med den nyligen imatade genom modulen bcrypt
+        console.log(matchPassword);  // feedback som returnerar true ifall de stämmer.
 
-        if (matchPassword) {  // om användarnamn och lösenord stämmer eller har hittats.
+        if (matchPassword) {  // om användarnamn och lösenord stämmer eller har hittats. (true, så kmr den fortsätta annars hoppar till else.)
             req.session.loggedin = true;  // vi skapar en session,.
             req.session.username = req.body.username; /// vi sparar användarnamnet som är inmatad med session namnet som vi kan använda senare.
             res.redirect('/start')  // skickar iväg till gästboken
@@ -86,8 +81,8 @@ app.post('/loggain', async function (req, res) {  // när formuläret skickas, s
         console.log(`Användaren ${userAccount.username} skrev in fel lösen.`)
     }
     else
-    res.redirect('/');
-    console.log('Någon försökte logga in med ett användarnamn som inte hittades.')
+    res.redirect('/');  // ifall användarnamnet inte hittades så blir de redirectade tillbaks till inloggning sidan.
+    console.log('Någon försökte logga in med ett användarnamn som inte hittades.') // feedback för skaparen.
 });
 
 app.get('/loggaut', function (req, res) {   // skapar en sida för när användaren vill logga ut.
@@ -97,21 +92,21 @@ app.get('/loggaut', function (req, res) {   // skapar en sida för när använda
 });
 
 app.get('/registera', function (req, res) {  // skapar en sida som skickar iväg användaren till registering htmlen med formulär.
-    res.send(`${htmlModel.htmlToBody()} ${htmlModel.menuLoggedout()}  ${htmlModel.registerForm()}  ${htmlModel.bodyToHtml()}`);// skickar med mapp och fil namn.
+    res.send(`${htmlModel.htmlToBody()} ${htmlModel.menuLoggedout()}  ${htmlModel.registerForm()}  ${htmlModel.bodyToHtml()}`);// skapar en html sida för registering med hjälp av importerade funktioner.
 });
 
 app.post('/registera', async function (req, res) { // För registeringsidans formulär. 
     let userAccount = users.find((user) => req.body.username === user.username); // vi gör som förut som vi gjorde på inloggning sidan.
-    let userEmail = users.find((user) => req.body.email === user.email);
+    let userEmail = users.find((user) => req.body.email === user.email);  // vi testar om de emailet finns redan i listan.
     if (!userAccount && !userEmail) { // om användarnamnet och emailen är ledigt.
         const hashPassword = bcrypt.hashSync(req.body.password, 8);  // hashar lösenordet 8^2 rundor för att de ska bli säkert., .
         let newUser = {  // vi skapar en objekt
             username: req.body.username, // där username, email och lösenord ska vara inmatningarna från formuläret.
-            email: req.body.email,
-            password: hashPassword
+            email: req.body.email,  
+            password: hashPassword // det hashade lösenordet.
         }
         users.push(newUser); // lägg till det nya objektet i den vanliga objekt.
-        fs.writeFileSync('user.json', JSON.stringify(users, null, 4)) // vi skriver in den nya objektet tillsammans med de gamla.
+        fs.writeFileSync('user.json', JSON.stringify(users, null, 4)) // vi skriver in den nya objektet tillsammans med de gamla med mellanrum(4) för att de ska vara läsbart.
 
         res.redirect('/');  // feedback när kontot är skapad.
         console.log(`Användare: ${req.body.username} och ${req.body.email} är skapad!`)  // feedback för konsolen.
@@ -121,16 +116,17 @@ app.post('/registera', async function (req, res) { // För registeringsidans for
 
 });
 
-app.get('/skapa', function (req, res) {   // request sidan när de vill komma åt /skapa
-    if (req.session.loggedin == true) //
-        res.send(`${htmlModel.htmlToBody()}  ${htmlModel.createForm()}  ${htmlModel.bodyToHtml()}`); // vi skickar skapa.html om de är inloggade.
-    else
-        res.redirect('/'); // annars tillbaks till inloggning sidan.
-});
+// detta bort kommenterade koden var förut när jag använde en seperat sida för att användare ska göra in lägg.
+// app.get('/skapa', function (req, res) {   // request sidan när de vill komma åt /skapa
+//     if (req.session.loggedin == true) //
+//         res.send(`${htmlModel.htmlToBody()}  ${htmlModel.createForm()}  ${htmlModel.bodyToHtml()}`); // vi skickar skapa.html om de är inloggade.
+//     else
+//         res.redirect('/'); // annars tillbaks till inloggning sidan.
+// });
 
-app.post('/skapa', function (req, res) {  // POST för skapa.html formuläret.
+app.post('/skapa', function (req, res) {  // POST för skapa inlägg sidan. formuläret.
     if (req.session.loggedin == true) {  // om användaren är inloggad
-        let entryMessage = req.body.body;
+        let entryMessage = req.body.body; // deklarerar  entryMEssage som inmatade medelande.
         let newEntry = {   // skapar ny inlägg objekt
             Namn: req.session.username,  // vi hämtar deras användarnamn från sessionen de har loggat in med.
             Medelande: valiDator(entryMessage),  // medelandet.
